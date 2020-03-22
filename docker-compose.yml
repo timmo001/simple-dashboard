@@ -2,12 +2,12 @@
 version: "3"
 
 volumes:
-  home_panel_data: {}
+  simple_dashboard_data: {}
 
 services:
   simple-dashboard:
     build: .
     volumes:
-      - home_panel_data:/data
+      - simple_dashboard_data:/data
     ports:
       - 8234:8234
