@@ -2,7 +2,7 @@
 repository:
   description: "Lorem ipsum."
   homepage: https://timmo.dev/simple-dashboard/
-  topics: simple-dashboard, home-automation, typescript, javascript, reactjs, websocket, hass, webapp, material-design
+  topics: simple-dashboard, typescript, javascript, reactjs, websocket, webapp, material-design
   private: false
   has_issues: true
   has_projects: false
