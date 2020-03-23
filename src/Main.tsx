@@ -25,12 +25,13 @@ export interface Section {
   alignItems?: GridItemsAlignment;
   alignContent?: GridContentAlignment;
   justify?: GridJustification;
+  size?: boolean | 'auto' | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
   items?: Item[];
 }
 
 export interface Item {
-  data?: ReactElement;
   size?: boolean | 'auto' | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+  data?: ReactElement;
 }
 
 interface SpacerProps {
@@ -65,41 +66,35 @@ export default function Main(): ReactElement {
   useEffect(() => {
     setSections([
       {
-        alignItems: 'flex-start',
+        alignItems: 'center',
         alignContent: 'flex-start',
         justify: 'flex-start',
+        size: 12,
         items: [
           {
+            size: 12,
             data: (
-              <Box>
-                <Typography variant="h2" component="span">
+              <Box textAlign="center">
+                <Typography variant="h1" component="span">
                   {moment().format('hh:mm')}
                 </Typography>
                 <Spacer space={0.5} />
-                <Typography variant="h4" component="span">
+                <Typography variant="h3" component="span">
                   {moment().format('a')}
                 </Typography>
                 <Spacer />
               </Box>
-            ),
-            size: true
-          }
-        ]
-      },
-      {
-        alignItems: 'flex-start',
-        alignContent: 'flex-start',
-        justify: 'flex-end',
-        items: [
+            )
+          },
           {
+            size: 12,
             data: (
-              <Box>
+              <Box textAlign="center">
                 <Typography variant="h2" component="span">
                   {moment().format('Do MMMM YYYY')}
                 </Typography>
               </Box>
-            ),
-            size: 'auto'
+            )
           }
         ]
       },
@@ -107,6 +102,7 @@ export default function Main(): ReactElement {
         alignItems: 'flex-end',
         alignContent: 'flex-end',
         justify: 'flex-start',
+        size: 6,
         items: [
           {
             data: (
@@ -187,8 +183,7 @@ export default function Main(): ReactElement {
             size: true
           }
         ]
-      },
-      {}
+      }
     ]);
   }, []);
 
@@ -208,7 +203,7 @@ export default function Main(): ReactElement {
               <Grid
                 key={sectionKey}
                 item
-                xs={6}
+                xs={section.size || 6}
                 container
                 direction="row"
                 justify={section.justify}
@@ -217,7 +212,7 @@ export default function Main(): ReactElement {
                 {section.items &&
                   section.items.map(
                     (item: Item, itemKey: number): ReactElement => (
-                      <Grid key={itemKey} item xs={item.size}>
+                      <Grid key={itemKey} item xs={item.size || 'auto'}>
                         {item.data}
                       </Grid>
                     )
