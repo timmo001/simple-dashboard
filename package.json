@@ -23,8 +23,9 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test": "CI=true react-scripts test --forceExit --detectOpenHandles --coverage --coverageDirectory=output/coverage/jest --reporters=default --reporters=jest-junit",
+    "eject": "react-scripts eject",
+    "eslint": "eslint -c .eslintrc.json --color src"
   },
   "eslintConfig": {
     "extends": "react-app"
