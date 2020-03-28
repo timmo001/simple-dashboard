@@ -5,7 +5,7 @@ import Box from '@material-ui/core/Box';
 import Grid, {
   GridItemsAlignment,
   GridContentAlignment,
-  GridJustification
+  GridJustification,
 } from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
@@ -14,11 +14,11 @@ import moment from 'moment';
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     height: '100%',
-    padding: theme.spacing(2)
+    padding: theme.spacing(2),
   },
   degree: {
-    verticalAlign: 'top'
-  }
+    verticalAlign: 'top',
+  },
 }));
 
 export interface Section {
@@ -84,7 +84,7 @@ export default function Main(): ReactElement {
                 </Typography>
                 <Spacer />
               </Box>
-            )
+            ),
           },
           {
             size: 12,
@@ -94,9 +94,9 @@ export default function Main(): ReactElement {
                   {moment().format('Do MMMM YYYY')}
                 </Typography>
               </Box>
-            )
-          }
-        ]
+            ),
+          },
+        ],
       },
       {
         alignItems: 'flex-end',
@@ -110,7 +110,7 @@ export default function Main(): ReactElement {
                 Living Room
               </Typography>
             ),
-            size: 3
+            size: 3,
           },
           {
             data: (
@@ -128,7 +128,7 @@ export default function Main(): ReactElement {
                 <Percent />
               </Box>
             ),
-            size: 9
+            size: 9,
           },
           {
             data: (
@@ -136,7 +136,7 @@ export default function Main(): ReactElement {
                 Kitchen
               </Typography>
             ),
-            size: 3
+            size: 3,
           },
           {
             data: (
@@ -154,7 +154,7 @@ export default function Main(): ReactElement {
                 <Percent />
               </Box>
             ),
-            size: 9
+            size: 9,
           },
           {
             data: (
@@ -162,7 +162,7 @@ export default function Main(): ReactElement {
                 Outside
               </Typography>
             ),
-            size: 3
+            size: 3,
           },
           {
             data: (
@@ -180,10 +180,10 @@ export default function Main(): ReactElement {
                 <Percent />
               </Box>
             ),
-            size: true
-          }
-        ]
-      }
+            size: true,
+          },
+        ],
+      },
     ]);
   }, []);
 

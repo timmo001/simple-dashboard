@@ -95,7 +95,7 @@
         "isDefault": true
       },
       "presentation": {
-        "reveal": "test",
+        "reveal": "always",
         "panel": "new"
       },
       "problemMatcher": []

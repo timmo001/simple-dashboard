@@ -12,9 +12,9 @@ const theme = createMuiTheme({
     secondary: grey,
     background: {
       default: '#000000',
-      paper: '#121212'
-    }
-  }
+      paper: '#121212',
+    },
+  },
 });
 
 export default function App(): ReactElement {
