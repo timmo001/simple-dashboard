@@ -1,12 +1,23 @@
 import React, { Fragment, ReactElement } from 'react';
+import clsx from 'clsx';
 import moment from 'moment';
 import { AlignSelfProperty, TextAlignProperty } from 'csstype';
+import { makeStyles } from '@material-ui/core/styles';
 import { Variant } from '@material-ui/core/styles/createTypography';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
 import { BaseProps } from '../Types';
 import Spacer from '../Generic/Spacer';
+
+const useStyles = makeStyles(() => ({
+  border: {
+    border: '1px solid rgba(250, 250, 250, 0)',
+  },
+  borderActive: {
+    border: '1px solid rgba(250, 250, 250, 0.8)',
+  },
+}));
 
 export interface Item {
   id: string;
@@ -45,14 +56,18 @@ function Item(props: Item): ReactElement {
 }
 
 export default function Items(props: ItemsProps): ReactElement {
-  const { items } = props;
+  const { editingConfiguration, items } = props;
 
+  const classes = useStyles();
   return (
     <Fragment>
       {items.map(
         (item: Item, itemKey: number): ReactElement => (
           <Grid
             key={itemKey}
+            className={clsx(
+              editingConfiguration ? classes.borderActive : classes.border
+            )}
             item
             xs={item.size || 'auto'}
             style={{

@@ -1,4 +1,5 @@
 import React, { ReactElement } from 'react';
+import clsx from 'clsx';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import Grid, {
   GridContentAlignment,
@@ -17,6 +18,12 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   degree: {
     verticalAlign: 'top',
+  },
+  border: {
+    border: '1px solid rgba(250, 250, 250, 0)',
+  },
+  borderActive: {
+    border: '1px solid rgba(250, 250, 250, 0.8)',
   },
 }));
 
@@ -39,7 +46,10 @@ export default function Sections(props: SectionsProps): ReactElement {
   const classes = useStyles();
   return (
     <Grid
-      className={classes.root}
+      className={clsx(
+        classes.root,
+        editingConfiguration ? classes.borderActive : classes.border
+      )}
       container
       direction="row"
       justify="space-between"
@@ -49,6 +59,9 @@ export default function Sections(props: SectionsProps): ReactElement {
           (section: Section, sectionKey: number): ReactElement => (
             <Grid
               key={sectionKey}
+              className={clsx(
+                editingConfiguration ? classes.borderActive : classes.border
+              )}
               item
               xs={section.size || 6}
               container
