@@ -1,4 +1,4 @@
-import { Section } from './Sections/Sections';
+import { Section } from './Sections/Section';
 import { HomeAssistantEntityProps } from './HomeAssistant/HomeAssistant';
 
 export interface Configuration {

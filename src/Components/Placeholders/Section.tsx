@@ -1,4 +1,4 @@
-import { Section } from '../Sections/Sections';
+import { Section } from '../Sections/Section';
 import makeKey from '../../utils/makeKey';
 
 export default function placeholderSection(): Section {

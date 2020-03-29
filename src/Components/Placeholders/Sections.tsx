@@ -1,4 +1,4 @@
-import { Section } from '../Sections/Sections';
+import { Section } from '../Sections/Section';
 import makeKey from '../../utils/makeKey';
 
 export default function placeholderSections(): Section[] {
@@ -21,7 +21,8 @@ export default function placeholderSections(): Section[] {
           id: makeKey(16),
           size: 'auto',
           type: 'spacer',
-          space: 1,
+          spaceHigh: 1,
+          spaceWide: 1,
         },
         {
           id: makeKey(16),
@@ -73,7 +74,8 @@ export default function placeholderSections(): Section[] {
           id: makeKey(16),
           size: 'auto',
           type: 'spacer',
-          space: 2,
+          spaceHigh: 1,
+          spaceWide: 2,
         },
         {
           id: makeKey(16),
@@ -86,7 +88,8 @@ export default function placeholderSections(): Section[] {
           id: makeKey(16),
           size: 'auto',
           type: 'spacer',
-          space: 0.25,
+          spaceHigh: 1,
+          spaceWide: 0.25,
         },
         {
           id: makeKey(16),

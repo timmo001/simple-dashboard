@@ -5,7 +5,7 @@ import Icon from '@mdi/react';
 import { mdiPlus } from '@mdi/js';
 
 import { BaseProps, Configuration } from '../Types';
-import { Section } from '../Sections/Sections';
+import { Section } from '../Sections/Section';
 import clone from '../../utils/clone';
 import placeholderItem from '../Placeholders/Item';
 import placeholderSection from '../Placeholders/Section';

@@ -9,7 +9,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
 import { BaseProps } from '../Types';
-import { Section } from './Sections';
+import { Section } from './Section';
 import EditItem from './EditItem';
 import Spacer from '../Generic/Spacer';
 
@@ -19,6 +19,13 @@ const useStyles = makeStyles(() => ({
   },
   borderActive: {
     border: '1px solid rgba(250, 250, 250, 0.8)',
+  },
+  buttonBase: {
+    display: 'inherit',
+    height: '100%',
+    width: '100%',
+    alignItems: 'inherit',
+    verticalAlign: 'inherit',
   },
   text: {
     userSelect: 'none',
@@ -32,18 +39,20 @@ export interface Item {
   alignSelf?: AlignSelfProperty;
   textAlign?: TextAlignProperty;
   size?: boolean | 'auto' | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
-  space?: number;
+  spaceHigh?: number;
+  spaceWide?: number;
   variant?: Variant;
 }
 
 export interface ItemProps extends BaseProps {
-  section: Section;
+  forceBorder?: boolean;
   item: Item;
+  section: Section;
 }
 
 function InnerItem(props: ItemProps): ReactElement {
   const { item } = props;
-  const { data, space, type, variant } = item;
+  const { data, spaceHigh, spaceWide, type, variant } = item;
 
   const classes = useStyles();
   switch (type) {
@@ -54,7 +63,7 @@ function InnerItem(props: ItemProps): ReactElement {
         </Typography>
       );
     case 'spacer':
-      return <Spacer space={space} />;
+      return <Spacer spaceHigh={spaceHigh} spaceWide={spaceWide} />;
     case 'text':
       return (
         <Typography className={classes.text} variant={variant} component="span">
@@ -65,7 +74,7 @@ function InnerItem(props: ItemProps): ReactElement {
 }
 
 export default function Item(props: ItemProps): ReactElement {
-  const { editingConfiguration, item } = props;
+  const { editingConfiguration, forceBorder, item } = props;
 
   const [editingItem, setEditingItem] = useState<boolean>(false);
 
@@ -82,7 +91,9 @@ export default function Item(props: ItemProps): ReactElement {
     <Fragment>
       <Grid
         className={clsx(
-          editingConfiguration ? classes.borderActive : classes.border
+          forceBorder || editingConfiguration
+            ? classes.borderActive
+            : classes.border
         )}
         item
         xs={item.size || 'auto'}
@@ -91,6 +102,7 @@ export default function Item(props: ItemProps): ReactElement {
           textAlign: item.textAlign,
         }}>
         <ButtonBase
+          className={classes.buttonBase}
           component="div"
           disabled={!editingConfiguration}
           onClick={handleEditItem}>

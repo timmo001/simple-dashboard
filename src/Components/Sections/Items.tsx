@@ -1,7 +1,7 @@
 import React, { Fragment, ReactElement } from 'react';
 
 import { BaseProps } from '../Types';
-import { Section } from './Sections';
+import { Section } from './Section';
 import SectionItem, { Item } from './Item';
 
 interface ItemsProps extends BaseProps {
