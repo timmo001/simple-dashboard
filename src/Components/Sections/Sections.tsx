@@ -6,7 +6,8 @@ import Grid, {
   GridJustification,
 } from '@material-ui/core/Grid';
 
-import { HomeAssistantEntityProps } from '../HomeAssistant/HomeAssistant';
+import { BaseProps } from '../Types';
+import Add from '../Generic/Add';
 import Items, { Item } from './Items';
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -20,6 +21,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 export interface Section {
+  id: string;
   alignItems?: GridItemsAlignment;
   alignContent?: GridContentAlignment;
   justify?: GridJustification;
@@ -27,12 +29,12 @@ export interface Section {
   items?: Item[];
 }
 
-export interface SectionsProps extends HomeAssistantEntityProps {
+export interface SectionsProps extends BaseProps {
   sections: Section[];
 }
 
 export default function Sections(props: SectionsProps): ReactElement {
-  const { sections } = props;
+  const { sections, editingConfiguration } = props;
 
   const classes = useStyles();
   return (
@@ -54,10 +56,12 @@ export default function Sections(props: SectionsProps): ReactElement {
               alignContent={section.alignContent}
               alignItems={section.alignItems}
               justify={section.justify}>
-              {section.items && <Items items={section.items} />}
+              {section.items && <Items {...props} items={section.items} />}
+              {editingConfiguration && <Add {...props} section={section} />}
             </Grid>
           )
         )}
+      {editingConfiguration && <Add {...props} />}
     </Grid>
   );
 }

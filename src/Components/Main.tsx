@@ -23,9 +23,9 @@ const useStyles = makeStyles((theme: Theme) => ({
 interface MainProps {
   configuration: Configuration;
   loggedIn: boolean;
-  handleConfigurationChange: (config: Configuration) => void;
   handleLogin: () => void;
   handleLogout: () => void;
+  handleUpdateConfiguration: (config: Configuration) => void;
 }
 
 export default function Main(props: MainProps): ReactElement {
@@ -91,10 +91,12 @@ export default function Main(props: MainProps): ReactElement {
         alignItems="stretch">
         {sections && (
           <Sections
-            sections={sections}
+            {...props}
+            editingConfiguration={editingConfiguration}
             hassAuth={hassAuth}
             hassConfig={hassConfig}
             hassEntities={hassEntities}
+            sections={sections}
           />
         )}
       </Grid>

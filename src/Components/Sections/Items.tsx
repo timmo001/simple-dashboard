@@ -5,9 +5,11 @@ import { Variant } from '@material-ui/core/styles/createTypography';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
+import { BaseProps } from '../Types';
 import Spacer from '../Generic/Spacer';
 
 export interface Item {
+  id: string;
   type: 'date' | 'spacer' | 'text';
   data?: string;
   alignSelf?: AlignSelfProperty;
@@ -17,7 +19,7 @@ export interface Item {
   variant?: Variant;
 }
 
-export interface ItemsProps {
+export interface ItemsProps extends BaseProps {
   items: Item[];
 }
 

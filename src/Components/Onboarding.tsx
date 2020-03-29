@@ -130,7 +130,7 @@ function Onboarding(): ReactElement {
     window.location.replace(window.location.href);
   }
 
-  function handleConfigurationChange(config: Configuration): void {
+  function handleUpdateConfiguration(config: Configuration): void {
     socket.emit(
       'patch',
       'config',
@@ -157,7 +157,7 @@ function Onboarding(): ReactElement {
         <Main
           configuration={configuration}
           loggedIn={loggedIn}
-          handleConfigurationChange={handleConfigurationChange}
+          handleUpdateConfiguration={handleUpdateConfiguration}
           handleLogin={handleLogin}
           handleLogout={handleLogout}
         />
