@@ -28,7 +28,7 @@ export default function placeholderSections(): Section[] {
           size: 'auto',
           type: 'date',
           variant: 'h3',
-          data: 'a',
+          data: 'A',
         },
         {
           id: makeKey(16),
