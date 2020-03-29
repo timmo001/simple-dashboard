@@ -8,8 +8,9 @@ import Grid, {
 } from '@material-ui/core/Grid';
 
 import { BaseProps } from '../Types';
+import { Item } from './Item';
 import Add from '../Generic/Add';
-import Items, { Item } from './Items';
+import Items from './Items';
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -69,7 +70,9 @@ export default function Sections(props: SectionsProps): ReactElement {
               alignContent={section.alignContent}
               alignItems={section.alignItems}
               justify={section.justify}>
-              {section.items && <Items {...props} items={section.items} />}
+              {section.items && (
+                <Items {...props} section={section} items={section.items} />
+              )}
               {editingConfiguration && <Add {...props} section={section} />}
             </Grid>
           )
