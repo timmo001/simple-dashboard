@@ -76,7 +76,7 @@ export default function EditItem(props: EditItemProps): ReactElement {
           <Grid
             className={classes.gridForm}
             item
-            xs={6}
+            xs
             container
             direction="row"
             alignContent="flex-start"
@@ -150,7 +150,7 @@ export default function EditItem(props: EditItemProps): ReactElement {
           <Grid
             className={classes.preview}
             item
-            xs
+            xs={section.size}
             container
             direction="row"
             alignContent="center"
