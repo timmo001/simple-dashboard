@@ -1,15 +1,14 @@
-import React from 'react';
+import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import App from './Components/App';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-  <React.StrictMode>
+  <StrictMode>
     <App />
-  </React.StrictMode>,
+  </StrictMode>,
   document.getElementById('root')
 );
 
-if (process.env.NODE_ENV === 'production') serviceWorker.register();
-else serviceWorker.unregister();
+serviceWorker.register();

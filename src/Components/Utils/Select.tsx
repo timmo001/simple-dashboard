@@ -1,13 +1,10 @@
 import React, { useEffect, useState, useCallback, ReactElement } from 'react';
 import Fuse from 'fuse.js';
-import { HassEntity } from 'home-assistant-js-websocket';
 import { makeStyles, Theme, useTheme } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import Paper from '@material-ui/core/Paper';
 import Popper from '@material-ui/core/Popper';
 import TextField from '@material-ui/core/TextField';
-
-import { HomeAssistantEntityProps } from '../HomeAssistant';
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -20,29 +17,31 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-interface SuggestionType {
+export interface SuggestionType {
   label: string;
   value: string;
 }
 
-interface EntitySelectProps extends HomeAssistantEntityProps {
-  entity?: string;
-  handleChange: (value: string) => void;
+interface SelectProps {
+  label?: string;
+  value: string;
+  options: SuggestionType[];
+  handleChange: (value: string | number) => void;
 }
 
 let PopperNode: HTMLDivElement | null | undefined;
 
-function EntitySelect(props: EntitySelectProps): ReactElement {
+function Select(props: SelectProps): ReactElement {
   const classes = useStyles();
   const theme = useTheme();
 
-  const [options, setOptions] = useState<SuggestionType[]>([]);
-  const [search, setSearch] = useState('');
-  const [open, setOpen] = useState(false);
-  const [suggestions, setSuggestions] = useState<SuggestionType[]>([]);
+  const [search, setSearch] = useState<string>('');
+  const [open, setOpen] = useState<boolean>(false);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [suggestions, setSuggestions] = useState<any[]>([]);
 
   const filterSuggestions = useCallback(() => {
-    const fuse = new Fuse(options, {
+    const fuse = new Fuse(props.options, {
       keys: ['label', 'value'],
       caseSensitive: false,
       minMatchCharLength: 2,
@@ -50,12 +49,9 @@ function EntitySelect(props: EntitySelectProps): ReactElement {
     });
     const results = fuse.search(search);
     setSuggestions(
-      (Array.isArray(results) ? results : options).slice(
-        0,
-        30
-      ) as SuggestionType[]
+      (Array.isArray(results) ? results : props.options).slice(0, 40)
     );
-  }, [options, search]);
+  }, [props.options, search]);
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>): void {
     setSearch(event.target.value);
@@ -81,32 +77,21 @@ function EntitySelect(props: EntitySelectProps): ReactElement {
   };
 
   useEffect(() => {
-    setOptions(
-      Object.values(props.hassEntities).map((entity: HassEntity) => ({
-        label: entity.attributes.friendly_name
-          ? `${entity.attributes.friendly_name} - ${entity.entity_id}`
-          : entity.entity_id,
-        value: entity.entity_id,
-      }))
-    );
-  }, [props.hassEntities]);
-
-  useEffect(() => {
-    if (!search && options && props.entity) {
-      const val = options.find(
-        (option: SuggestionType) => option.value === props.entity
+    if (!search && props.options && props.value) {
+      const val = props.options.find(
+        (option: SuggestionType) => option.value === props.value
       );
       if (val) setSearch(val.label);
     }
-  }, [search, options, props.entity]);
+  }, [search, props.options, props.value]);
 
   return (
     <div className={classes.root}>
       <TextField
         fullWidth
         InputLabelProps={{ shrink: true }}
-        label="Entity"
-        placeholder="Search for entities"
+        label={props.label}
+        placeholder={`Search for ${props.label ? props.label : 'items'}`}
         aria-controls="options"
         aria-haspopup="true"
         ref={(node: HTMLDivElement): void => {
@@ -143,4 +128,4 @@ function EntitySelect(props: EntitySelectProps): ReactElement {
   );
 }
 
-export default EntitySelect;
+export default Select;

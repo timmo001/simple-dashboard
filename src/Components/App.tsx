@@ -3,7 +3,7 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { grey } from '@material-ui/core/colors';
 import 'typeface-roboto';
 
-import Main from './Main';
+import Onboarding from './Onboarding';
 
 const theme = createMuiTheme({
   palette: {
@@ -20,7 +20,7 @@ const theme = createMuiTheme({
 export default function App(): ReactElement {
   return (
     <ThemeProvider theme={theme}>
-      <Main />
+      <Onboarding />
     </ThemeProvider>
   );
 }

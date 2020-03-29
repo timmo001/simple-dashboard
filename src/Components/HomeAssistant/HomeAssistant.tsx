@@ -26,9 +26,9 @@ interface HomeAssistantProps {
 }
 
 export interface HomeAssistantEntityProps {
-  hassAuth: Auth;
-  hassConfig: HassConfig;
-  hassEntities: HassEntities;
+  hassAuth?: Auth;
+  hassConfig?: HassConfig;
+  hassEntities?: HassEntities;
 }
 
 export interface HomeAssistantChangeProps {
