@@ -3,19 +3,21 @@ import useEventListener from '@use-it/event-listener';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Divider from '@material-ui/core/Divider';
-import Fade from '@material-ui/core/Fade';
 import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import Slide from '@material-ui/core/Slide';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Toolbar from '@material-ui/core/Toolbar';
 import Icon from '@mdi/react';
 import {
   mdiAccountCircle,
-  mdiMenu,
+  mdiCheck,
   mdiHomeAssistant,
+  mdiMenu,
+  mdiPencil,
   mdiViewDashboard,
 } from '@mdi/js';
 
@@ -28,21 +30,29 @@ const useStyles = makeStyles({
   listItemsBottom: {
     position: 'absolute',
     bottom: 0,
+    width: '100%',
+  },
+  spacer: {
+    flex: 1,
   },
 });
 
-interface DrawerProps {
-  loggedIn: boolean;
+interface HeaderProps {
+  editingConfiguration: boolean;
   hassConnected: boolean;
+  loggedIn: boolean;
+  handleEditConfiguration: () => void;
   handleHassLogin: (url: string) => void;
   handleLogin: () => void;
   handleLogout: () => void;
 }
 
-export default function Drawer(props: DrawerProps): ReactElement {
+export default function Header(props: HeaderProps): ReactElement {
   const {
-    loggedIn,
+    editingConfiguration,
     hassConnected,
+    loggedIn,
+    handleEditConfiguration,
     handleHassLogin,
     handleLogin,
     handleLogout,
@@ -89,22 +99,36 @@ export default function Drawer(props: DrawerProps): ReactElement {
   const classes = useStyles();
   return (
     <Fragment>
-      <Fade in={mouseOverMenuButton || mouseMoved}>
-        <AppBar position="fixed" color="transparent">
-          <Toolbar>
+      <Slide direction="down" in={mouseOverMenuButton || mouseMoved}>
+        <AppBar
+          position="fixed"
+          color="inherit"
+          onMouseEnter={handleMouseEnterMenuButton}
+          onMouseOver={handleMouseEnterMenuButton}
+          onMouseLeave={handleMouseLeaveMenuButton}>
+          <Toolbar variant="dense">
             <IconButton
               edge="start"
               color="inherit"
               aria-label="menu"
-              onMouseEnter={handleMouseEnterMenuButton}
-              onMouseOver={handleMouseEnterMenuButton}
-              onMouseLeave={handleMouseLeaveMenuButton}
               onClick={handleDrawerOpen}>
               <Icon title="Menu" path={mdiMenu} color="#fafafa" size={1} />
             </IconButton>
+            <div className={classes.spacer} />
+            <IconButton
+              color="inherit"
+              aria-label="edit"
+              onClick={handleEditConfiguration}>
+              <Icon
+                title="Edit"
+                path={editingConfiguration ? mdiCheck : mdiPencil}
+                color="#fafafa"
+                size={1}
+              />
+            </IconButton>
           </Toolbar>
         </AppBar>
-      </Fade>
+      </Slide>
 
       <SwipeableDrawer
         anchor="left"

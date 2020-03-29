@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 
 import { Configuration } from './Types';
 import { parseTokens } from './HomeAssistant/Utils/Auth';
-import Drawer from './Drawer';
+import Header from './Header';
 import HomeAssistant from './HomeAssistant/HomeAssistant';
 import Sections from './Sections/Sections';
 
@@ -32,6 +32,9 @@ export default function Main(props: MainProps): ReactElement {
   const { configuration, loggedIn, handleLogin, handleLogout } = props;
   const { sections } = configuration;
 
+  const [editingConfiguration, setEditingConfiguration] = useState<boolean>(
+    false
+  );
   const [hassAuth, setHassAuth] = useState<Auth>();
   const [hassConfig, setHassConfig] = useState<HassConfig>();
   const [hassConnected, setHassConnected] = useState<boolean>(false);
@@ -63,13 +66,19 @@ export default function Main(props: MainProps): ReactElement {
     setHassLogin(true);
   }
 
+  function handleEditConfiguration(): void {
+    setEditingConfiguration(!editingConfiguration);
+  }
+
   const classes = useStyles();
   return (
     <Fragment>
       <CssBaseline />
-      <Drawer
-        loggedIn={loggedIn}
+      <Header
+        editingConfiguration={editingConfiguration}
         hassConnected={hassConnected}
+        loggedIn={loggedIn}
+        handleEditConfiguration={handleEditConfiguration}
         handleHassLogin={handleHassLogin}
         handleLogin={handleLogin}
         handleLogout={handleLogout}
