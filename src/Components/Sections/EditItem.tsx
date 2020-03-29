@@ -108,7 +108,7 @@ export default function EditItem(props: EditItemProps): ReactElement {
                 label="Data"
                 value={data}
                 onChange={handleChange('data')}
-              />{' '}
+              />
             </Grid>
             <Grid item xs={6}>
               <TextField
