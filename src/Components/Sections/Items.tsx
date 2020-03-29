@@ -21,12 +21,10 @@ export interface ItemsProps {
   items: Item[];
 }
 
-function Item(props: Item): ReactElement | null {
+function Item(props: Item): ReactElement {
   const { data, type, space, variant } = props;
 
   switch (type) {
-    default:
-      return null;
     case 'date':
       return (
         <Typography variant={variant} component="span">
