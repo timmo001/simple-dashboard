@@ -151,7 +151,6 @@ export default function EditItem(props: EditItemProps): ReactElement {
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
     let value: string | number | undefined = event.target.value;
-    console.log(key, ':', value, ':', typeof value);
     switch (key) {
       case 'spaceHigh':
       case 'spaceWide':
@@ -159,7 +158,6 @@ export default function EditItem(props: EditItemProps): ReactElement {
         else value = Number(value);
         break;
     }
-    console.log(key, ':', value, ':', typeof value);
     setItem({ ...item, [key]: value });
   };
 
@@ -171,7 +169,6 @@ export default function EditItem(props: EditItemProps): ReactElement {
     _event: React.ChangeEvent<{}>,
     value: boolean | string | number | null | undefined
   ): void => {
-    console.log(key, ':', value, ':', typeof value);
     switch (key) {
       case 'type':
         if (value === null || value === undefined) return;
@@ -183,7 +180,6 @@ export default function EditItem(props: EditItemProps): ReactElement {
         else if (!isNaN(Number(value))) value = Number(value);
         break;
     }
-    console.log(key, ':', value, ':', typeof value);
     setItem({ ...item, [key]: value });
   };
 
