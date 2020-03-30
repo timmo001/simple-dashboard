@@ -39,7 +39,9 @@ function EntitySelect(props: EntitySelectProps): ReactElement {
       id="entity"
       value={entity}
       options={Object.values(hassEntities).filter(
-        (e: HassEntity) => !e.entity_id.startsWith('device_tracker')
+        (e: HassEntity) =>
+          !e.entity_id.startsWith('automation') ||
+          !e.entity_id.startsWith('device_tracker')
       )}
       getOptionLabel={(e: HassEntity): string => e.entity_id}
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
