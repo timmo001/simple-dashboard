@@ -1,6 +1,6 @@
 import React, { Fragment, ReactElement, useState } from 'react';
 import clsx from 'clsx';
-import { makeStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Grid, {
   GridContentAlignment,
   GridItemsAlignment,
@@ -16,7 +16,7 @@ import Add from '../Generic/Add';
 import EditSection from './EditSection';
 import Items from './Items';
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles(() => ({
   border: {
     border: '1px solid rgba(250, 250, 250, 0)',
   },

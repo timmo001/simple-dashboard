@@ -13,6 +13,7 @@ import { Configuration } from '../Types';
 import { Section } from './Section';
 import { sizeOptions } from './EditSection';
 import clone from '../../utils/clone';
+import EntitySelect from '../HomeAssistant/Utils/EntitySelect';
 import SectionItem, { Item, ItemProps } from './Item';
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -41,6 +42,15 @@ export const itemTypes = {
     spaceHigh: false,
     variant: true,
   },
+  entity: {
+    data: true,
+    alignSelf: true,
+    textAlign: true,
+    size: true,
+    spaceWide: false,
+    spaceHigh: false,
+    variant: true,
+  },
   spacer: {
     data: false,
     alignSelf: false,
@@ -61,7 +71,7 @@ export const itemTypes = {
   },
 };
 
-export const typeOptions: string[] = ['date', 'text', 'spacer'];
+export const typeOptions: string[] = ['date', 'entity', 'text', 'spacer'];
 
 export const alignSelfOptions: string[] = [
   'auto',
@@ -143,17 +153,20 @@ export default function EditItem(props: EditItemProps): ReactElement {
     setItem({ ...item, [key]: event.target.value });
   };
 
+  function handleEntityChange(value: string): void {
+    setItem({ ...item, data: value });
+  }
+
   const handleAutoCompleteChange = (key: string) => (
     _event: React.ChangeEvent<{}>,
     value: boolean | string | number | null | undefined
   ): void => {
-    if (key === 'size') {
-      console.log(value);
+    if (key === 'type' && (value === null || value === undefined)) return;
+    else if (key === 'size') {
       if (value === null || value === undefined) value = undefined;
       else if (value === 'true') value = true;
       else if (value === 'false') value = false;
       else if (!isNaN(Number(value))) value = Number(value);
-      console.log(value);
     }
     setItem({ ...item, [key]: value });
   };
@@ -208,13 +221,21 @@ export default function EditItem(props: EditItemProps): ReactElement {
             )}
             {itemTypes[type].data && (
               <Grid item xs={6}>
-                <TextField
-                  fullWidth
-                  id="data"
-                  label="Data"
-                  value={data}
-                  onChange={handleChange('data')}
-                />
+                {type === 'entity' ? (
+                  <EntitySelect
+                    {...props}
+                    value={data}
+                    handleChange={handleEntityChange}
+                  />
+                ) : (
+                  <TextField
+                    fullWidth
+                    id="data"
+                    label="Data"
+                    value={data}
+                    onChange={handleChange('data')}
+                  />
+                )}
               </Grid>
             )}
             {itemTypes[type].alignSelf && (
