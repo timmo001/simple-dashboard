@@ -150,7 +150,17 @@ export default function EditItem(props: EditItemProps): ReactElement {
   const handleChange = (key: string) => (
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
-    setItem({ ...item, [key]: event.target.value });
+    let value: string | number | undefined = event.target.value;
+    console.log(key, ':', value, ':', typeof value);
+    switch (key) {
+      case 'spaceHigh':
+      case 'spaceWide':
+        if (value === null || value === undefined) value = undefined;
+        else value = Number(value);
+        break;
+    }
+    console.log(key, ':', value, ':', typeof value);
+    setItem({ ...item, [key]: value });
   };
 
   function handleEntityChange(value: string): void {
@@ -161,13 +171,19 @@ export default function EditItem(props: EditItemProps): ReactElement {
     _event: React.ChangeEvent<{}>,
     value: boolean | string | number | null | undefined
   ): void => {
-    if (key === 'type' && (value === null || value === undefined)) return;
-    else if (key === 'size') {
-      if (value === null || value === undefined) value = undefined;
-      else if (value === 'true') value = true;
-      else if (value === 'false') value = false;
-      else if (!isNaN(Number(value))) value = Number(value);
+    console.log(key, ':', value, ':', typeof value);
+    switch (key) {
+      case 'type':
+        if (value === null || value === undefined) return;
+        break;
+      case 'size':
+        if (value === null || value === undefined) value = undefined;
+        else if (value === 'true') value = true;
+        else if (value === 'false') value = false;
+        else if (!isNaN(Number(value))) value = Number(value);
+        break;
     }
+    console.log(key, ':', value, ':', typeof value);
     setItem({ ...item, [key]: value });
   };
 
