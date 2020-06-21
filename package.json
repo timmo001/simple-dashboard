@@ -22,7 +22,7 @@
     "fuse.js": "5.0.10-beta",
     "home-assistant-js-websocket": "5.1.0",
     "moment": "2.24.0",
-    "query-string": "6.11.1",
+    "query-string": "6.13.1",
     "react": "16.13.1",
     "react-color": "2.18.0",
     "react-dom": "16.13.1",
